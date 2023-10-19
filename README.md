@@ -13,7 +13,26 @@
   * [Semicolons](#semicolons)
   * [Code Comments](#code-comments)
   * [Barrels](#barrels)
-* [Angular coding style guide](#angular-coding-style-guide)
+  * [S-I-D](#sid)
+  *   [Avoid contractions](/awesome-nest-boilerplate/docs/naming-cheatsheet.html#avoid-contractions)
+  *   [Avoid context duplication](/awesome-nest-boilerplate/docs/naming-cheatsheet.html#avoid-context-duplication)
+  *   [Reflect the expected result](/awesome-nest-boilerplate/docs/naming-cheatsheet.html#reflect-the-expected-result)
+  *   [A/HC/LC Pattern](/awesome-nest-boilerplate/docs/naming-cheatsheet.html#a-hc-lc-pattern)
+  *   [Actions](/awesome-nest-boilerplate/docs/naming-cheatsheet.html#actions)
+      *   [get](/awesome-nest-boilerplate/docs/naming-cheatsheet.html#get)
+      *   [set](/awesome-nest-boilerplate/docs/naming-cheatsheet.html#set)
+      *   [reset](/awesome-nest-boilerplate/docs/naming-cheatsheet.html#reset)
+      *   [fetch](/awesome-nest-boilerplate/docs/naming-cheatsheet.html#fetch)
+      *   [remove](/awesome-nest-boilerplate/docs/naming-cheatsheet.html#remove)
+      *   [delete](/awesome-nest-boilerplate/docs/naming-cheatsheet.html#delete)
+      *   [compose](/awesome-nest-boilerplate/docs/naming-cheatsheet.html#compose)
+  *   [Context](/awesome-nest-boilerplate/docs/naming-cheatsheet.html#context)
+  *   [Prefixes](/awesome-nest-boilerplate/docs/naming-cheatsheet.html#prefixes)
+      *   [is](/awesome-nest-boilerplate/docs/naming-cheatsheet.html#is)
+      *   [has](/awesome-nest-boilerplate/docs/naming-cheatsheet.html#has)
+      *   [should](/awesome-nest-boilerplate/docs/naming-cheatsheet.html#should)
+      *   [min/max](/awesome-nest-boilerplate/docs/naming-cheatsheet.html#min-max)
+* [Nest coding style guide](#nest-coding-style-guide)
   * [Organize imports](#organize-imports)
   * [Use typescript aliases](#use-typescript-aliases)
   * [Specify component member accessor explicitly](#specify-component-member-accessor-explicitly)
@@ -46,6 +65,7 @@ Good:
  function isBetween(value: number, left: number, right: number): boolean {
    return left <= value && value <= right;
  }
+
 ```
 
 **Use pronounceable variable names**
@@ -60,6 +80,9 @@ class Subs {
   public billingAddrId: number;
   public shippingAddrId: number;
 }
+
+const primerNombre = 'Gustavo'
+const amigos = ['Kate', 'John']
 ```
 
 Good:
@@ -70,6 +93,10 @@ class Subscription {
   public billingAddressId: number;
   public shippingAddressId: number;
 }
+
+const primerNombre = 'Gustavo'
+const amigos = ['Kate', 'John']
+
 ```
 
 **Avoid mental mapping**
@@ -436,7 +463,293 @@ import { PaidSupportService } from './paid-support/paid-support.service';
 * Barrel files are named index.ts by convention
 * Do not import a barrel in the files that are already used in that barrel because this leads to circular dependency
 
+### S.I.D
+* Short. A name must not take long to type and, therefore, remember;
+* Intuitive. A name must read naturally, as close to the common speech as possible;
+* Descriptive. A name must reflect what it does/possesses in the most efficient way.
 
+Bad:
+  ```
+
+const a = 5 // "a" could mean anything
+const isPaginatable = a > 10 // "Paginatable" sounds extremely unnatural
+const shouldPaginatize = a > 10 // Made up verbs are so much fun!
+```
+Good:
+```
+const postCount = 5
+const hasPagination = postCount > 10
+const shouldPaginate = postCount > 10 // alternatively
+```
+[#](#avoid-contractions) Avoid contractions
+-------------------------------------------
+
+Do **not** use contractions. They contribute to nothing but decreased readability of the code. Finding a short, descriptive name may be hard, but contraction is not an excuse for not doing so.
+
+    /* Bad */
+    function getUsrNme() {
+      // ...
+    }
+    
+    /* Good */
+    function getUserName() {
+      // ...
+    }
+    
+[#](#avoid-context-duplication) Avoid context duplication
+---------------------------------------------------------
+
+A name should not duplicate the context in which it is defined. Always remove the context from a name if that doesn't decrease its readability.
+
+    class UserService {
+      /* Method name duplicates the context (which is "User") */
+      getUserSettings(event) { 
+        // ...
+      }
+    
+      /* Reads nicely as `userService.getSettings()` */
+      getSettings(event) { 
+        // ...
+      }
+    }
+
+[#](#reflect-the-expected-result) Reflect the expected result
+-------------------------------------------------------------
+
+A name should reflect the expected result.
+
+    /* Bad */
+    const isEnabled = itemCount > 3
+    if(!isEnabled) {
+      // ...
+    }
+    
+    /* Good */
+    const isDisabled = itemCount <= 3
+    if(isDisabled) {
+      // ...
+    }
+
+* * *
+
+[#](#naming-functions) Naming functions
+=======================================
+
+[#](#a-hc-lc-pattern) A/HC/LC Pattern
+-------------------------------------
+
+There is a useful pattern to follow when naming functions:
+
+    prefix? + action (A) + high context (HC) + low context? (LC)
+    
+
+Take a look at how this pattern may be applied in the table below.
+
+Name
+
+Prefix
+
+Action (A)
+
+High context (HC)
+
+Low context (LC)
+
+`getUser`
+
+`get`
+
+`User`
+
+`getUserMessages`
+
+`get`
+
+`User`
+
+`Messages`
+
+`shouldDisplayMessage`
+
+`should`
+
+`Display`
+
+`Message`
+
+`isPaymentEnabled`
+
+`is`
+
+`Enabled`
+
+`Payment`
+
+* * *
+
+[#](#actions) Actions
+---------------------
+
+The verb part of your function name. The most important part responsible for describing what the function _does_.
+
+### [#](#get) `get`
+
+Accesses data immediately (i.e. shorthand getter of internal data).
+
+    function getUserFullName() {
+      return this.firstName + ' ' + this.lastName;
+    }
+      
+
+> See also [compose](#compose).
+
+### [#](#set) `set`
+
+Sets a variable in a declarative way, with value `A` to value `B`.
+
+    let fruits = 0;
+    
+    function setFruits(nextFruits) {
+      fruits = nextFruits;
+    }
+    
+    setFruits(5);
+    console.log(fruits); // 5
+
+### [#](#reset) `reset`
+
+Sets a variable back to its initial value or state.
+
+    const initialFruits = 5
+    let fruits = initialFruits
+    setFruits(10)
+    console.log(fruits) // 10
+    
+    function resetFruits() {
+      fruits = initialFruits
+    }
+    
+    resetFruits()
+    console.log(fruits) // 5
+
+### [#](#fetch) `fetch`
+
+Request for some data, which takes some indeterminate time (i.e. database request).
+
+    function getUsers() {
+      return this.userRepository.createQueryBuilder()
+        .where('user.isActive = :isActive', { isActive: true })
+        .getMany();
+    }
+
+
+### [#](#remove) `remove`
+
+Removes something _from_ somewhere.
+
+For example, if you have a collection of selected filters on a search page, removing one of them from the collection is `removeFilter`, **not** `deleteFilter` (and this is how you would naturally say it in English as well):
+
+    function removeFilter(filters, filterName) {
+      return filters.filter((name) => name !== filterName)
+    }
+    
+    const selectedFilters = ['price', 'availability', 'size']
+    removeFilter(selectedFilters, 'price')
+
+> See also [delete](#delete).
+
+### [#](#delete) `delete`
+
+Completely erases something from the realms of existence.
+
+Imagine you are a content editor, and there is that notorious post you wish to get rid of. Once you clicked a shiny "Delete post" button, the CMS performed a `deletePost` action, **not** `removePost`.
+
+    function deleteUser(id) {
+       return this.userRepository.delete(id);
+    }
+
+> See also [remove](#remove).
+
+### [#](#compose) `compose`
+
+Creates new data from the existing one. Mostly applicable to strings, objects, or functions.
+
+    function composePageUrl(pageName, pageId) {
+      return (pageName.toLowerCase() + '-' + pageId)
+    }
+
+> See also [get](#get).
+
+* * *
+
+[#](#context) Context
+---------------------
+
+A domain that a function operates on.
+
+A function is often an action on _something_. It is important to state what its operable domain is, or at least an expected data type.
+
+    /* A pure function operating with primitives */
+    function filter(list, predicate) {
+      return list.filter(predicate)
+    }
+    
+    /* Function operating exactly on posts */
+    function getRecentPosts(posts) {
+      return filter(posts, (post) => post.date === Date.now())
+    }
+
+> Some language-specific assumptions may allow omitting the context. For example, in JavaScript, it's common that `filter` operates on Array. Adding explicit `filterArray` would be unnecessary.
+
+\--
+
+[#](#prefixes) Prefixes
+-----------------------
+
+Prefix enhances the meaning of a variable. It is rarely used in function names.
+
+### [#](#is) `is`
+
+Describes a characteristic or state of the current context (usually `boolean`).
+
+    const color = 'blue'
+    const isBlue = color === 'blue' // characteristic
+    const isPresent = true // state
+    
+    if (isBlue && isPresent) {
+      console.log('Blue is present!')
+    }
+### [#](#has) `has`
+
+Describes whether the current context possesses a certain value or state (usually `boolean`).
+
+    /* Bad */
+    const isProductsExist = productsCount > 0
+    const areProductsPresent = productsCount > 0
+    
+    /* Good */
+    const hasProducts = productsCount > 0
+   
+
+### [#](#should) `should`
+
+Reflects a positive conditional statement (usually `boolean`) coupled with a certain action.
+
+    function shouldUpdateUrl(url, expectedUrl) {
+      return url !== expectedUrl
+    }
+    
+### [#](#min-max) `min`/`max`
+
+Represents a minimum or maximum value. Used when describing boundaries or limits.
+
+    /**
+     * Renders a random amount of posts within
+     * the given min/max boundaries.
+     */
+    function renderPosts(posts, minPosts, maxPosts) {
+      return posts.slice(0, randomBetween(minPosts, maxPosts))
+    }
 ## NestJs coding style guide
 
 ### Organize imports
@@ -560,16 +873,12 @@ Use the private or protected accessor as much as you can because it provides a b
 
 Use the following component structure:
 
-1. Input properties (i.e. @Input() product: OrderItemModel)
-2. Output properties (i.e. @Output() changeMade = new EventEmitter<void>(true))
-3. ViewChild / ViewChildren (i.e. @ViewChild(ChildDirective) child!: ChildDirective)
-4. HostBinding properties (i.e. @HostBinding('class.valid') get valid() { return this.control.valid; })
-5. data members (i.e. public isBeingRemoved = false)
-7. constructor
-8. lifecycle hooks (following their execution order)
-9. getters/setters
-10. event handlers
-11. other methods
+1. data members (i.e. public isBeingRemoved = false)
+2. constructor
+3. lifecycle hooks (following their execution order)
+4. getters/setters
+5. event handlers
+6. other methods
 
 Use the following component accessors order:
 
@@ -655,57 +964,4 @@ Why to avoid it?
 * It couples the service implementation with the HTML template
 * It breaks the LoD (Law of Demeter)
 * VS Code does not support it (cannot find service reference inside template) so it makes refactoring not that fun anymore
-
-### Manage Subscriptions Declaratively
-
-It can become a little bit tedious to make sure everything gets unsubscribed when the component is destroyed.
-
-So the solution is to compose our subscriptions with the **takeUntil** operator and use a subject that emits a truthy value in the ngOnDestroy lifecycle hook.
-
-Bad:
-
-``` typescript
-import { Component, OnDestroy } from '@angular/core';
-
-@Component({ ... })
-export class AppComponent implements OnDestroy {
-  subject$ = new Subject<void>();
-
-  constructor() {}
-
-  ngOnDestroy() {
-    this.subject$.unsubscribe();
-  }
-}
-```
-
-Good:
-
-``` typescript
-import { Component, OnDestroy } from '@angular/core';
-
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
-
-@Component({ ... })
-export class AppComponent implements OnDestroy {
-  rxSubscriptionCancellationSubject$ = new Subject<void>();
-
-  constructor(private downloadsService: DownloadsService) {
-    this.downloadsService.getRenewalQuotationAsFile$
-      .pipe(
-        takeUntil(this.rxSubscriptionCancellationSubject$)
-      )
-      .subscribe(
-        result => {
-          console.log(`${ID}: getRenewalQuotationAsFile$ emitted`, result);
-        }
-      );
-  }
-
-  ngOnDestroy(): void {
-    this.rxSubscriptionCancellationSubject$.next();
-    this.rxSubscriptionCancellationSubject$.complete();
-  }
-}
 ```
