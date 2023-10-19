@@ -8,6 +8,7 @@
   * [Naming](#naming)
   * [Naming Conventions](#naming-conventions)
   * [Naming Booleans](#naming-booleans)
+  * [File names](#file-names)
   * [Brackets](#brackets)
   * [Spaces](#spaces)
   * [Semicolons](#semicolons)
@@ -259,6 +260,23 @@ Good:
 
 ``` typescript
 const isEnabled = false;
+```
+
+### File names
+
+* File names must be all lowercase and may include underscores (_) or dashes (-), but no additional punctuation. Follow the convention that your project uses. Filenames’ extension must be .ts,.js
+```
+app.js
+utils.js
+product-utils.js
+
+```
+
+* Directory names
+  
+```
+/components/
+/utils/
 ```
 
 ### Brackets
@@ -967,9 +985,8 @@ Why to avoid it?
 * VS Code does not support it (cannot find service reference inside template) so it makes refactoring not that fun anymore
 * 
 ### Postgresql
-* Names
-   Names in SQL must begin with a letter (a-z) or underscore (_). Subsequent characters in a name can be letters, digits (0-9), or underscores. The system uses no more than NAMEDATALEN-1 characters of a name;   longer names can be written in queries, but they will be truncated. By default, NAMEDATALEN is 32 so the maximum name length is 31 (but at the time the system is built, NAMEDATALEN can be changed in src/include/postgres_ext.h).
+* Names in SQL must begin with a letter (a-z) or underscore (_). Subsequent characters in a name can be letters, digits (0-9), or underscores. The system uses no more than NAMEDATALEN-1 characters of a name;   longer names can be written in queries, but they will be truncated. By default, NAMEDATALEN is 32 so the maximum name length is 31 (but at the time the system is built, NAMEDATALEN can be changed in src/include/postgres_ext.h).
 
-Names containing other characters may be formed by surrounding them with double quotes ("). For example, table or column names may contain otherwise disallowed characters such as spaces, ampersands, etc. if quoted. Quoting a name also makes it case-sensitive, whereas unquoted names are always folded to lower case. For example, the names FOO, foo and "foo" are considered the same by Postgres, but "Foo" is a different name.
+* Names containing other characters may be formed by surrounding them with double quotes ("). For example, table or column names may contain otherwise disallowed characters such as spaces, ampersands, etc. if quoted. Quoting a name also makes it case-sensitive, whereas unquoted names are always folded to lower case. For example, the names FOO, foo and "foo" are considered the same by Postgres, but "Foo" is a different name.
 
-Double quotes can also be used to protect a name that would otherwise be taken to be an SQL keyword. For example, IN is a keyword but "IN" is a name.
+* Double quotes can also be used to protect a name that would otherwise be taken to be an SQL keyword. For example, IN is a keyword but "IN" is a name.
