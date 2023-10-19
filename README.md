@@ -603,7 +603,7 @@ Accesses data immediately (i.e. shorthand getter of internal data).
 
 > See also [compose](#compose).
 
-### [#](#set) `set`
+### `set`
 
 Sets a variable in a declarative way, with value `A` to value `B`.
 
@@ -616,7 +616,7 @@ Sets a variable in a declarative way, with value `A` to value `B`.
     setFruits(5);
     console.log(fruits); // 5
 
-### [#](#reset) `reset`
+### `reset`
 
 Sets a variable back to its initial value or state.
 
@@ -632,7 +632,7 @@ Sets a variable back to its initial value or state.
     resetFruits()
     console.log(fruits) // 5
 
-### [#](#fetch) `fetch`
+### `fetch`
 
 Request for some data, which takes some indeterminate time (i.e. database request).
 
@@ -643,7 +643,7 @@ Request for some data, which takes some indeterminate time (i.e. database reques
     }
 
 
-### [#](#remove) `remove`
+### `remove`
 
 Removes something _from_ somewhere.
 
@@ -658,7 +658,7 @@ For example, if you have a collection of selected filters on a search page, remo
 
 > See also [delete](#delete).
 
-### [#](#delete) `delete`
+### `delete`
 
 Completely erases something from the realms of existence.
 
@@ -670,7 +670,7 @@ Imagine you are a content editor, and there is that notorious post you wish to g
 
 > See also [remove](#remove).
 
-### [#](#compose) `compose`
+### `compose`
 
 Creates new data from the existing one. Mostly applicable to strings, objects, or functions.
 
@@ -682,7 +682,7 @@ Creates new data from the existing one. Mostly applicable to strings, objects, o
 
 * * *
 
-[#](#context) Context
+### Context
 ---------------------
 
 A domain that a function operates on.
@@ -703,12 +703,12 @@ A function is often an action on _something_. It is important to state what its 
 
 \--
 
-[#](#prefixes) Prefixes
+### Prefixes
 -----------------------
 
 Prefix enhances the meaning of a variable. It is rarely used in function names.
 
-### [#](#is) `is`
+### `is`
 
 Describes a characteristic or state of the current context (usually `boolean`).
 
@@ -719,7 +719,7 @@ Describes a characteristic or state of the current context (usually `boolean`).
     if (isBlue && isPresent) {
       console.log('Blue is present!')
     }
-### [#](#has) `has`
+### `has`
 
 Describes whether the current context possesses a certain value or state (usually `boolean`).
 
@@ -731,7 +731,7 @@ Describes whether the current context possesses a certain value or state (usuall
     const hasProducts = productsCount > 0
    
 
-### [#](#should) `should`
+### `should`
 
 Reflects a positive conditional statement (usually `boolean`) coupled with a certain action.
 
@@ -739,7 +739,7 @@ Reflects a positive conditional statement (usually `boolean`) coupled with a cer
       return url !== expectedUrl
     }
     
-### [#](#min-max) `min`/`max`
+### `min`/`max`
 
 Represents a minimum or maximum value. Used when describing boundaries or limits.
 
