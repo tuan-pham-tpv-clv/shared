@@ -481,7 +481,7 @@ const postCount = 5
 const hasPagination = postCount > 10
 const shouldPaginate = postCount > 10 // alternatively
 ```
-[#](#avoid-contractions) Avoid contractions
+### Avoid contractions
 -------------------------------------------
 
 Do **not** use contractions. They contribute to nothing but decreased readability of the code. Finding a short, descriptive name may be hard, but contraction is not an excuse for not doing so.
@@ -496,7 +496,7 @@ Do **not** use contractions. They contribute to nothing but decreased readabilit
       // ...
     }
     
-[#](#avoid-context-duplication) Avoid context duplication
+### Avoid context duplication
 ---------------------------------------------------------
 
 A name should not duplicate the context in which it is defined. Always remove the context from a name if that doesn't decrease its readability.
@@ -513,7 +513,7 @@ A name should not duplicate the context in which it is defined. Always remove th
       }
     }
 
-[#](#reflect-the-expected-result) Reflect the expected result
+### Reflect the expected result
 -------------------------------------------------------------
 
 A name should reflect the expected result.
@@ -532,10 +532,10 @@ A name should reflect the expected result.
 
 * * *
 
-[#](#naming-functions) Naming functions
+### Naming functions
 =======================================
 
-[#](#a-hc-lc-pattern) A/HC/LC Pattern
+### A/HC/LC Pattern
 -------------------------------------
 
 There is a useful pattern to follow when naming functions:
@@ -587,12 +587,12 @@ Low context (LC)
 
 * * *
 
-[#](#actions) Actions
+### Actions
 ---------------------
 
 The verb part of your function name. The most important part responsible for describing what the function _does_.
 
-### [#](#get) `get`
+### `get`
 
 Accesses data immediately (i.e. shorthand getter of internal data).
 
