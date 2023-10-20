@@ -779,18 +779,15 @@ With clean and easy to read import statements you can quickly see the dependenci
 * Unused imports should be removed.
 * Groups of imports are delineated by one blank line before and after.
 * Groups must respect following order:
-  * Angular imports (i.e. import { HttpClient } from '@angular/common/http')
-  * Angular material imports (i.e. import { MatSelectChange } from '@angular/material/select')
-  * 3rd party imports except rxjs (i.e. import { SessionStorageService } from 'ngx-webstorage')
+  * NestJs imports (i.e. import { HttpClientModule } from '@nestjs/axios')
   * rxjs imports (i.e import { skipWhile } from 'rxjs/operators')
   * application imports sorted by type (services, classes, interfaces, enums)
 
 Bad:
 
 ``` typescript
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { MatSelectChange } from '@angular/material/select';
+import { Injectable } from '@nestjs/common';
+import { HttpClient } from '@nestjs/axios';
 import { SessionStorageService } from 'ngx-webstorage';
 
 import { merge, Observable, BehaviorSubject } from 'rxjs';
@@ -805,9 +802,8 @@ import { AdditionalServicesApi } from './additional-services-api';
 Good:
 
 ``` typescript
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { MatSelectChange } from '@angular/material/select';
+import { Injectable } from '@nestjs/common';
+import { HttpClient } from '@nestjs/axios';
 import { SessionStorageService } from 'ngx-webstorage';
 
 import { merge, Observable, BehaviorSubject } from 'rxjs';
