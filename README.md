@@ -193,7 +193,7 @@ class Foo {
 }
 ```
 
-* Use PascalCase for class names and interface names.
+* Use PascalCase for type alias, class name and interface names.
 
 Bad:
 
@@ -204,20 +204,43 @@ class foo { }
 Good:
 
 ``` typescript
-class Foo { }
+type Person {
+  name: string;
+  age: number;
+}
+
+class Point  { }
 ```
 
-* Use PascalCase for enums and camelCase for enum members
+* Do not use I as a prefix for interface names
+bad:
+
+``` typescript
+interface IPerson {
+  firstName: string;
+  lastName: string;
+}
+```
+Good:
+
+``` typescript
+interface Person {
+  firstName: string;
+  lastName: string;
+}
+```
+
+* Use PascalCase for enums and enum members
 
 Bad:
 
 ``` typescript
 enum notificationTypes {
-  Default = 0,
-  Info = 1,
-  Success = 2,
-  Error = 3,
-  Warning = 4
+  default = 0,
+  info = 1,
+  success = 2,
+  error = 3,
+  warning = 4
 }
 ```
 
@@ -225,11 +248,11 @@ Good:
 
 ``` typescript
 enum NotificationTypes {
-  default = 0,
-  info = 1,
-  success = 2,
-  error = 3,
-  warning = 4
+  Default = 0,
+  Info = 1,
+  Success = 2,
+  Error = 3,
+  Warning = 4
 }
 ```
 
@@ -987,3 +1010,88 @@ Why to avoid it?
 * Names containing other characters may be formed by surrounding them with double quotes ("). For example, table or column names may contain otherwise disallowed characters such as spaces, ampersands, etc. if quoted. Quoting a name also makes it case-sensitive, whereas unquoted names are always folded to lower case. For example, the names FOO, foo and "foo" are considered the same by Postgres, but "Foo" is a different name.
 
 * Double quotes can also be used to protect a name that would otherwise be taken to be an SQL keyword. For example, IN is a keyword but "IN" is a name.
+
+### REST
+In REST, the primary data representation is called resource, resource can be a singleton or a collection
+
+
+* Singleton and Collection Resources
+
+Identifed singleton resource using the URI
+```   
+ /customers			//is a collection resource
+
+ /customers/{id}		// is a singleton resource
+```
+* Collection and Sub-collection Resources
+
+```   
+/customers						//is a collection resource
+
+/customers/{id}/accounts		// is a sub-collection resource
+```
+
+* Use nouns to represent the resources instead of verbs.
+```   
+Example: /customers
+```
+
+* Use “verb” to denote controller archetype.
+```   
+Example: http://api.example.com/cart-management/users/{id}/cart/checkout
+```
+
+* DO NOT use trailing forward slash in URIs 
+
+```   
+Example: /user-management/users/ 
+/*should be remove the slash at end of path */
+```
+
+* Use hyphens ( - ) instead of underscore( _ ). To make URIs easier to read.
+
+```
+Example: /device-management/managed-devices
+```
+
+* Only use lower letters in URIs
+```
+Example, DO NOT USE: /User-Management
+```
+
+* The URIs must not contain file extensions
+
+```
+Example, DO NOT USE: /device-management/managed-devices.xml 
+```
+
+* Not allowed use CRUD function names in the URIs. Use HTTP request methods to indicate with CRUD function is performed.
+
+Bad codes:
+```
+POST /createUser
+GET /getUser/{id}
+PUT /updateUser/{id}
+DELETE /deleteUser/{id}
+```
+
+Good codes:
+```
+POST /users
+GET /users/{id}
+PUT /users/{id}
+DELETE /users/{id}
+```
+
+* With the requirements required resource sorted, limited,... Do not create new APIs, instead enable sort or limit though parameter in the URIs
+
+Good: Enabling sorting and limiting through parameters in the URIs:
+```
+GET /products?sort=price&limit=10
+```
+Bad: Creating new APIs for sorting and limiting
+```
+GET /products/sortByPrice
+GET /products/limitTo10
+```
+
